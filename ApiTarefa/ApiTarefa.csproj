@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApiUsuario.API\" />
+    <Folder Include="ApiTarefa.API\" />
   </ItemGroup>
 
 </Project>

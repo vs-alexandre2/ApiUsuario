@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "ApiUsuario": {
+    "ApiTarefa": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

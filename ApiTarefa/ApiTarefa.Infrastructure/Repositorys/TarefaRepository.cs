@@ -1,25 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ApiUsuario.ApiUsuario.Infrastructure.DataContexts;
-using ApiUsuario.ApiUsuario.Domain.Models;
-using ApiUsuario.ApiUsuario.Application.Services;
+using ApiTarefa.ApiTarefa.Infrastructure.DataContexts;
+using ApiTarefa.ApiTarefa.Domain.Models;
+using ApiTarefa.ApiTarefa.Application.Services;
 
-namespace ApiUsuario.ApiUsuario.Infrastructure.Repositorys
+namespace ApiTarefa.ApiTarefa.Infrastructure.Repositorys
 {
-    public class UsuarioRepository : IUsuarioRepository
+    public class TarefaRepository : ITarefaRepository
     {
-        private readonly UsuarioDbContext _context;
-        public UsuarioRepository(UsuarioDbContext context)
+        private readonly TarefaDbContext _context;
+        public TarefaRepository(TarefaDbContext context)
         {
             _context = context;
         }
 
-        public async Task<UsuarioServiceResponse<List<UsuarioModel>>> CreateUsuario(UsuarioModel novoUsuario)
+        public async Task<TarefaServiceResponse<List<TarefaModel>>> CreateTarefa(TarefaModel novoTarefa)
         {
-            UsuarioServiceResponse<List<UsuarioModel>> serviceResponse = new UsuarioServiceResponse<List<UsuarioModel>>();
+            TarefaServiceResponse<List<TarefaModel>> serviceResponse = new TarefaServiceResponse<List<TarefaModel>>();
 
             try
             {
-                if(novoUsuario == null)
+                if(novoTarefa == null)
                 {
                     serviceResponse.Dados = null;
                     serviceResponse.Mensagem = "Informar dados!";
@@ -28,10 +28,10 @@ namespace ApiUsuario.ApiUsuario.Infrastructure.Repositorys
                     return serviceResponse;
                 }                
 
-                _context.Add(novoUsuario);
+                _context.Add(novoTarefa);
                 await _context.SaveChangesAsync();
 
-                serviceResponse.Dados = _context.Usuarios.ToList();
+                serviceResponse.Dados = _context.Tarefas.ToList();
 
 
             }catch (Exception ex)
@@ -43,15 +43,15 @@ namespace ApiUsuario.ApiUsuario.Infrastructure.Repositorys
             return serviceResponse;
         }
 
-        public async Task<UsuarioServiceResponse<List<UsuarioModel>>> DeleteUsuario(int id)
+        public async Task<TarefaServiceResponse<List<TarefaModel>>> DeleteTarefa(int id)
         {
-            UsuarioServiceResponse<List<UsuarioModel>> serviceResponse = new UsuarioServiceResponse<List<UsuarioModel>>();
+            TarefaServiceResponse<List<TarefaModel>> serviceResponse = new TarefaServiceResponse<List<TarefaModel>>();
 
             try
             {
-                UsuarioModel Usuario = _context.Usuarios.FirstOrDefault(x => x.Id == id);
+                TarefaModel Tarefa = _context.Tarefas.FirstOrDefault(x => x.Id == id);
 
-                if (Usuario == null)
+                if (Tarefa == null)
                 {
                     serviceResponse.Dados = null;
                     serviceResponse.Mensagem = "Usuário não localizado!";
@@ -61,11 +61,11 @@ namespace ApiUsuario.ApiUsuario.Infrastructure.Repositorys
                 }
 
 
-                _context.Usuarios.Remove(Usuario);
+                _context.Tarefas.Remove(Tarefa);
                 await _context.SaveChangesAsync();
 
 
-                serviceResponse.Dados = _context.Usuarios.ToList();
+                serviceResponse.Dados = _context.Tarefas.ToList();
 
             }
             catch(Exception ex)
@@ -77,22 +77,22 @@ namespace ApiUsuario.ApiUsuario.Infrastructure.Repositorys
             return serviceResponse;
         }
 
-        public async Task<UsuarioServiceResponse<UsuarioModel>> GetUsuarioById(int id)
+        public async Task<TarefaServiceResponse<TarefaModel>> GetTarefaById(int id)
         {
-            UsuarioServiceResponse<UsuarioModel> serviceResponse = new UsuarioServiceResponse<UsuarioModel>();
+            TarefaServiceResponse<TarefaModel> serviceResponse = new TarefaServiceResponse<TarefaModel>();
 
             try
             {
-                UsuarioModel Usuario = _context.Usuarios.FirstOrDefault(x => x.Id == id);
+                TarefaModel Tarefa = _context.Tarefas.FirstOrDefault(x => x.Id == id);
 
-                if(Usuario == null)
+                if(Tarefa == null)
                 {
                     serviceResponse.Dados = null;
                     serviceResponse.Mensagem = "Usuário não localizado!";
                     serviceResponse.Sucesso = false;
                 }
 
-                serviceResponse.Dados = Usuario;
+                serviceResponse.Dados = Tarefa;
 
             }
             catch(Exception ex)
@@ -105,13 +105,13 @@ namespace ApiUsuario.ApiUsuario.Infrastructure.Repositorys
             return serviceResponse;
         }
 
-        public async Task<UsuarioServiceResponse<List<UsuarioModel>>> GetUsuarios()
+        public async Task<TarefaServiceResponse<List<TarefaModel>>> GetTarefas()
         {
-            UsuarioServiceResponse<List<UsuarioModel>> serviceResponse = new UsuarioServiceResponse<List<UsuarioModel>>();
+            TarefaServiceResponse<List<TarefaModel>> serviceResponse = new TarefaServiceResponse<List<TarefaModel>>();
 
             try
             {
-                serviceResponse.Dados = _context.Usuarios.ToList();
+                serviceResponse.Dados = _context.Tarefas.ToList();
 
                 if(serviceResponse.Dados.Count == 0)
                 {
@@ -130,25 +130,25 @@ namespace ApiUsuario.ApiUsuario.Infrastructure.Repositorys
 
         }
 
-        public async Task<UsuarioServiceResponse<List<UsuarioModel>>> UpdateUsuario(UsuarioModel editadoUsuario)
+        public async Task<TarefaServiceResponse<List<TarefaModel>>> UpdateTarefa(TarefaModel editadoTarefa)
         {
-            UsuarioServiceResponse<List<UsuarioModel>> serviceResponse = new UsuarioServiceResponse<List<UsuarioModel>>();
+            TarefaServiceResponse<List<TarefaModel>> serviceResponse = new TarefaServiceResponse<List<TarefaModel>>();
 
             try
             {
-                UsuarioModel Usuario = _context.Usuarios.AsNoTracking().FirstOrDefault(x => x.Id == editadoUsuario.Id);
+                TarefaModel Tarefa = _context.Tarefas.AsNoTracking().FirstOrDefault(x => x.Id == editadoTarefa.Id);
 
-                if (Usuario == null)
+                if (Tarefa == null)
                 {
                     serviceResponse.Dados = null;
                     serviceResponse.Mensagem = "Usuário não localizado!";
                     serviceResponse.Sucesso = false;
                 }                
 
-                _context.Usuarios.Update(editadoUsuario);
+                _context.Tarefas.Update(editadoTarefa);
                 await _context.SaveChangesAsync();
 
-                serviceResponse.Dados = _context.Usuarios.ToList();
+                serviceResponse.Dados = _context.Tarefas.ToList();
 
             }
             catch(Exception ex)
