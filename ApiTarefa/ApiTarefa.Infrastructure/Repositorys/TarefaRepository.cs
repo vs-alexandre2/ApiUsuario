@@ -54,7 +54,7 @@ namespace ApiTarefa.ApiTarefa.Infrastructure.Repositorys
                 if (Tarefa == null)
                 {
                     serviceResponse.Dados = null;
-                    serviceResponse.Mensagem = "Usuário não localizado!";
+                    serviceResponse.Mensagem = "Tarefa não localizada!";
                     serviceResponse.Sucesso = false;
 
                     return serviceResponse;
@@ -88,7 +88,7 @@ namespace ApiTarefa.ApiTarefa.Infrastructure.Repositorys
                 if(Tarefa == null)
                 {
                     serviceResponse.Dados = null;
-                    serviceResponse.Mensagem = "Usuário não localizado!";
+                    serviceResponse.Mensagem = "Tarefa não localizada!";
                     serviceResponse.Sucesso = false;
                 }
 
@@ -141,7 +141,7 @@ namespace ApiTarefa.ApiTarefa.Infrastructure.Repositorys
                 if (Tarefa == null)
                 {
                     serviceResponse.Dados = null;
-                    serviceResponse.Mensagem = "Usuário não localizado!";
+                    serviceResponse.Mensagem = "Tarefa não localizada!";
                     serviceResponse.Sucesso = false;
                 }                
 

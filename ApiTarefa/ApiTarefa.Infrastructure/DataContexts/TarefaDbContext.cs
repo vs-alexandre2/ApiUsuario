@@ -11,11 +11,6 @@ namespace ApiTarefa.ApiTarefa.Infrastructure.DataContexts
         }
 
         public DbSet<TarefaModel> Tarefas { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<TarefaModel>().ToTable("Tarefa");
-        }
+        
     }
 }
